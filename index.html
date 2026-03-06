@@ -54,6 +54,22 @@
             background-size:cover;overflow:hidden;
             position:relative;background-position:center;
         }
+        #start{
+            position:absolute;
+            top:0;
+            left:0;
+            height:100vh;
+            width:100vw;
+            background:rgba(0,0,0,0.6);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            z-index:5;
+        }
+        #start button{
+            font-size:40px;
+            padding:20px 50px;
+        }
         #thoigian {
             font-size:40px;left:50%;bottom:0;
             position:absolute;z-index: 2;
@@ -64,10 +80,14 @@
 <body>
     <div class="manhinh" id="manhinh">
         <div id="xeminh"></div>
+        <div id="start">
+            <button onclick="batdau()">Bắt Đầu</button>
+        </div>
         <p id="thoigian"></p>
     </div>
     <script>
         function themxe() {
+            if(y==0) return;
             const a=document.createElement('div');
             a.className="xe";
             let b=document.getElementById('manhinh');
@@ -78,6 +98,7 @@
             setTimeout(()=>{a.remove();},tg*1000);
         }
         function themxe2() {
+            if(y==0) return;
             const a=document.createElement('div');
             a.className="xe";
             let b=document.getElementById('manhinh');
@@ -88,6 +109,7 @@
             setTimeout(()=>{a.remove();},tg*1000);
         }
         function themoto() {
+            if(y==0) return;
             let b=document.getElementById('manhinh');
             const tg=Math.random()*3+4;
             const oto=document.createElement('div');
@@ -97,9 +119,22 @@
             b.appendChild(oto);
             setTimeout(()=>{oto.remove();},tg*1000);
         }
-        setInterval(themxe,300);
-        setInterval(themoto,1500);
-        setInterval(themxe2,1500);
+        function batdau() {
+            const f=document.getElementById('start');
+            f.style.display="none";
+            o=setInterval(themxe,300);
+            n=setInterval(themoto,1500);
+            p=setInterval(themxe2,1500);
+            y=1;
+
+        }
+        const thoigian=document.getElementById("thoigian");
+        setInterval(()=>{
+            if(y==1){
+                thoigian.innerText=i++;
+            }
+        },1000);
+        let y=0;
         let xeminh=document.getElementById('xeminh');
         let m=0;
         document.addEventListener("mousedown",function() {
@@ -109,12 +144,13 @@
             m=0;
         })
         document.addEventListener("mousemove",function (e){
-            if(m==1){
+            if(m==1&&y==1){
                 xeminh.style.left=e.clientX-22+"px";
                 xeminh.style.top=e.clientY-45+"px";
             }
         })
         function vacham() {
+            if(y==0) return;
             const xe=document.querySelectorAll(".xe,.oto");
             const c=document.getElementById("xeminh");
             const xeta=c.getBoundingClientRect();   /*cái này giúp xác định tọa độ hiện tại của vật thể trên màn hình*/
@@ -133,11 +169,18 @@
         }
         setInterval(vacham,10);
         let i=0;
-        const thoigian=document.getElementById("thoigian");
-        setInterval(()=>{thoigian.innerText=i++;},1000);
         function thua() {
             alert("Thua rồi :))");
-            i=0;
+            const g=document.getElementById("start");
+            const h=document.getElementById("xeminh");
+            h.style.bottom=50+"px";
+            h.style.left=50+"%";
+            g.style.display="flex";
+            i=0;y=0;
+            document.querySelectorAll(".xe,.oto").forEach(e=>e.remove());
+            clearInterval(o);
+            clearInterval(n);
+            clearInterval(p);
         }
     </script>
 </body>
