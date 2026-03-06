@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Game</title>
+    <style>
+        ::-webkit-scrollbar { display: none; }
+        .xe {
+            height:70px;width:40px;
+            border-radius:999px;
+            position:absolute;
+            top:-100px;z-index:1;
+            animation:fall1 linear forwards;
+            background-image: url('xemay.png');
+            background-size: 100% 100%;  
+            background-repeat: no-repeat;
+            background-position: center;  
+        }
+        #xeminh {
+            border-radius:999px;
+            background-image: url('xe.png');
+            background-size: 100% 100%;  
+            background-repeat: no-repeat;
+            background-position: center;  
+            height:90px;width:45px;position:absolute;z-index:1;
+            bottom:50px;left:50%;
+        }
+        .oto {
+            height:170px;width:100px;
+            border-radius:30px;
+            position:absolute;
+            top:-260px;z-index:1;
+            background-image: url('oto.png');
+            background-size: 100% 100%;  
+            background-repeat: no-repeat;
+            background-position: center;  
+            animation:fall2 linear forwards;
+        }
+        @keyframes fall1 {
+            from{transform:rotate(180deg);}
+            to {
+                transform:translateY(150vh) rotate(180deg);
+            }
+        }
+        @keyframes fall2 {
+            to {
+                transform:translateY(150vh) ;
+            }
+        }
+        .manhinh {
+            height:100vh;width:100vw;
+            background:url('https://img.freepik.com/premium-photo/aerial-view-road-highway_51195-1321.jpg?w=360');
+            background-size:cover;overflow:hidden;
+            position:relative;background-position:center;
+        }
+        #thoigian {
+            font-size:40px;left:50%;bottom:0;
+            position:absolute;z-index: 2;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+    <div class="manhinh" id="manhinh">
+        <div id="xeminh"></div>
+        <p id="thoigian"></p>
+    </div>
+    <script>
+        function themxe() {
+            const a=document.createElement('div');
+            a.className="xe";
+            let b=document.getElementById('manhinh');
+            a.style.left=Math.random()*90+5 +"vw";
+            const tg=Math.random()*3+1.5;
+            a.style.animationDuration=tg+"s";
+            b.appendChild(a);
+            setTimeout(()=>{a.remove();},tg*1000);
+        }
+        function themxe2() {
+            const a=document.createElement('div');
+            a.className="xe";
+            let b=document.getElementById('manhinh');
+            a.style.left=Math.random()*90+5 +"vw";
+            const tg=Math.random()*2;
+            a.style.animationDuration=tg+"s";
+            b.appendChild(a);
+            setTimeout(()=>{a.remove();},tg*1000);
+        }
+        function themoto() {
+            let b=document.getElementById('manhinh');
+            const tg=Math.random()*3+4;
+            const oto=document.createElement('div');
+            oto.className="oto";
+            oto.style.left=Math.random()*80+10 +"vw";
+            oto.style.animationDuration=tg+"s";
+            b.appendChild(oto);
+            setTimeout(()=>{oto.remove();},tg*1000);
+        }
+        setInterval(themxe,300);
+        setInterval(themoto,1500);
+        setInterval(themxe2,1500);
+        let xeminh=document.getElementById('xeminh');
+        let m=0;
+        document.addEventListener("mousedown",function() {
+            m=1;
+        })
+        document.addEventListener("mouseup",function() {
+            m=0;
+        })
+        document.addEventListener("mousemove",function (e){
+            if(m==1){
+                xeminh.style.left=e.clientX-22+"px";
+                xeminh.style.top=e.clientY-45+"px";
+            }
+        })
+        function vacham() {
+            const xe=document.querySelectorAll(".xe,.oto");
+            const c=document.getElementById("xeminh");
+            const xeta=c.getBoundingClientRect();   /*cái này giúp xác định tọa độ hiện tại của vật thể trên màn hình*/
+            xe.forEach(d=>{
+                const xedich=d.getBoundingClientRect();
+                const n=5;
+                if(
+                    xedich.right-n<xeta.left+n||
+                    xedich.left+n>xeta.right-n||
+                    xedich.bottom-n<xeta.top+n||
+                    xedich.top+n>xeta.bottom-n
+
+                ){}
+                else thua();
+            })
+        }
+        setInterval(vacham,10);
+        let i=0;
+        const thoigian=document.getElementById("thoigian");
+        setInterval(()=>{thoigian.innerText=i++;},1000);
+        function thua() {
+            alert("Thua rồi :))");
+            i=0;
+        }
+    </script>
+</body>
+</html>
