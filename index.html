@@ -157,8 +157,8 @@
         })
         document.addEventListener("touchmove",function (l){
             if(m==1&&y==1){
-                xeminh.style.left=l[0].clientX-22+"px";
-                xeminh.style.top=l[0].clientY-45+"px";
+                xeminh.style.left=l.touches[0].clientX-22+"px";
+                xeminh.style.top=l.touches[0].clientY-45+"px";
             }
         })
         function vacham() {
@@ -197,4 +197,5 @@
     </script>
 </body>
 </html>
+
 
