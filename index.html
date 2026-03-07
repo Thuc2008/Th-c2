@@ -149,6 +149,18 @@
                 xeminh.style.top=e.clientY-45+"px";
             }
         })
+        document.addEventListener("touchstart",function() {
+            m=1;
+        })
+        document.addEventListener("touchend",function() {
+            m=0;
+        })
+        document.addEventListener("touchmove",function (l){
+            if(m==1&&y==1){
+                xeminh.style.left=l[0].clientX-22+"px";
+                xeminh.style.top=l[0].clientY-45+"px";
+            }
+        })
         function vacham() {
             if(y==0) return;
             const xe=document.querySelectorAll(".xe,.oto");
@@ -185,3 +197,4 @@
     </script>
 </body>
 </html>
+
