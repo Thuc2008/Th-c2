@@ -162,7 +162,7 @@
                 xeminh.style.left=l.touches[0].clientX-22+"px";
                 xeminh.style.top=l.touches[0].clientY-45+"px";
             }
-        })
+        }),{passive:false});
         function vacham() {
             if(y==0) return;
             const xe=document.querySelectorAll(".xe,.oto");
@@ -199,6 +199,7 @@
     </script>
 </body>
 </html>
+
 
 
 
